@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
       </NavLink>
       <NavLink
         to="/"
-        end // Match root path exactly
+        end 
         className={({ isActive }: { isActive: boolean }) =>
           `px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ease-in-out flex items-center ${
             isActive
