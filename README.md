@@ -1,54 +1,114 @@
-# React + TypeScript + Vite
+# OutFlo Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Campaign Management System built with React, TypeScript, and Vite to efficiently create, manage, and track marketing campaigns.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend Framework**: React 18+
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **css**:Tailwindcss
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Campaign creation, editing, and deletion
+- Responsive design for all devices
+- API integration with backend services
+- Environment-based configuration
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/your-username/outflo-assignment.git
+   cd outflo-assignment/client
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Create a `.env` file in the project root and add the necessary environment variables
+
+   ```
+   VITE_API_BASE_URL=http://localhost:5000
+   ```
+
+4. Start the development server
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:5173](http://localhost:5173) to view the app in your browser
+
+## Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm run build` - Build the app for production
+- `npm run lint` - Run ESLint to check code quality
+- `npm run test` - Run tests
+- `npm run preview` - Preview the production build locally
+
+## Project Structure
+
+```
+client/
+├── public/             # Static assets
+├── src/
+│   ├── api/            # API service layer
+│   ├── assets/         # Images and static resources
+│   ├── components/     # Reusable UI components
+│   ├── hooks/          # Custom React hooks
+│   ├── pages/          # Application pages
+│   ├── routes/         # Route definitions
+│   ├── services/       # Business logic services
+│   ├── styles/         # Global styles
+│   ├── types/          # TypeScript type definitions
+│   ├── utils/          # Utility functions
+│   ├── App.tsx         # Root component
+│   ├── main.tsx        # Entry point
+│   └── vite-env.d.ts   # Vite type definitions
+├── .env                # Environment variables
+├── .eslintrc.js        # ESLint configuration
+├── index.html          # HTML entry
+├── package.json        # Dependencies and scripts
+├── tsconfig.json       # TypeScript configuration
+└── vite.config.ts      # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The application uses environment variables for configuration:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- `VITE_API_BASE_URL`: The base URL for API requests
+
+## Deployment
+
+Build the application for production:
+
+```bash
+npm run build
+# or
+yarn build
 ```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## Original Vite Template Information
+
+This project was bootstrapped with the Vite template. For more information, visit the [Vite documentation](https://vitejs.dev/).

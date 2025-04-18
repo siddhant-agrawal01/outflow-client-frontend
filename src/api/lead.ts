@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000"; // Or your deployed backend
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 export const fetchLeads = async () => {
   const res = await axios.get(`${API_BASE}/leads`);
