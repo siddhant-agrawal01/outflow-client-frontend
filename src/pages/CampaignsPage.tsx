@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// frontend/src/pages/CampaignsPage.tsx
+// frontend/src/pzages/CampaignsPage.tsx
 import React, { useEffect, useState } from "react";
 import {
   fetchCampaigns,

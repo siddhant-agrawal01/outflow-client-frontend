@@ -22,5 +22,5 @@ export const searchLeadsByUrl = async (url: string) => {
   const res = await axios.get(
     `${API_BASE}/leads/search?url=${encodeURIComponent(url)}`
   );
-  return res.data;  // array of leads
+  return res.data; 
 };
