@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 type Props = {
   message: string;
   onClose: () => void;
+  profileUrl?: string; // Add profileUrl as optional prop
 };
 
-const MessageModal: React.FC<Props> = ({ message, onClose }) => {
+const MessageModal: React.FC<Props> = ({ message, onClose, profileUrl }) => {
   const [copied, setCopied] = useState(false);
   const [editableMessage, setEditableMessage] = useState(message);
 
@@ -23,9 +24,24 @@ const MessageModal: React.FC<Props> = ({ message, onClose }) => {
     setEditableMessage(e.target.value);
   };
 
+  // Function to handle sending message on LinkedIn
+  const handleSendOnLinkedIn = () => {
+    // Copy the message to clipboard first
+    navigator.clipboard.writeText(editableMessage);
+    setCopied(true);
+
+    // Then open LinkedIn profile in a new tab
+    if (profileUrl) {
+      window.open(profileUrl, "_blank");
+    }
+
+    // Reset the copied state after a delay
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0  bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
       <div
@@ -88,21 +104,41 @@ const MessageModal: React.FC<Props> = ({ message, onClose }) => {
         </div>
 
         <div className="border-t border-gray-200 px-6 py-4 flex justify-between items-center">
-          <button
-            onClick={handleCopy}
-            className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
-          >
-            <svg
-              className="w-4 h-4 mr-1"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={handleCopy}
+              className="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
             >
-              <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path>
-              <path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path>
-            </svg>
-            {copied ? "Copied to clipboard!" : "Copy message"}
-          </button>
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path>
+                <path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path>
+              </svg>
+              {copied ? "Copied to clipboard!" : "Copy message"}
+            </button>
+
+            {profileUrl && (
+              <button
+                onClick={handleSendOnLinkedIn}
+                className="flex items-center text-sm font-medium bg-blue-50 text-blue-700 px-3 py-1.5 rounded-md hover:bg-blue-100 transition-colors"
+              >
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0zM6.96 15H4.707V7.978h2.255V15zM5.833 7.033a1.128 1.128 0 1 1 1.1-1.129 1.115 1.115 0 0 1-1.1 1.129zM15 15h-2.25v-3.772c0-.92-.042-2.103-1.328-2.103-1.328 0-1.53 1.002-1.53 2.037V15h-2.25V7.978h2.16v.955h.031a2.699 2.699 0 0 1 2.427-1.295c2.595 0 3.07 1.659 3.07 3.82V15z" />
+                </svg>
+                Send on LinkedIn
+              </button>
+            )}
+          </div>
+
           <div className="flex space-x-3">
             <button
               onClick={() => setEditableMessage(message)}

@@ -17,6 +17,8 @@ const LeadsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchUrl, setSearchUrl] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [currentLead, setCurrentLead] = useState<any>(null);
 
   const loadLeads = async () => {
     try {
@@ -64,6 +66,8 @@ const LeadsPage: React.FC = () => {
   const handleGenerateMessage = async (lead: any) => {
     try {
       setIsLoading(true);
+      setCurrentLead(lead);
+
       const result = await generateMessage({
         name: lead.name,
         job_title: lead.job_title,
@@ -73,15 +77,15 @@ const LeadsPage: React.FC = () => {
       });
 
       const cleanedMessage = result
-        .replace(/\*\*.*?\*\*/g, "") 
-        .replace(/\*\s*(.*?)\s*\*/g, "$1") 
-        .replace(/\[.*?\]/g, "") 
-        .replace(/\n{3,}/g, "\n\n") 
-        .replace(/\*\*/g, "") 
-        .replace(/\*/g, "") 
-        .replace(/Suggestions for filling in the bracketed section:.*$/s, "") 
-        .replace(/Why this works:.*$/s, "") 
-        .replace(/Remember to tailor.*$/s, "") 
+        .replace(/\*\*.*?\*\*/g, "")
+        .replace(/\*\s*(.*?)\s*\*/g, "$1")
+        .replace(/\[.*?\]/g, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .replace(/\*\*/g, "")
+        .replace(/\*/g, "")
+        .replace(/Suggestions for filling in the bracketed section:.*$/s, "")
+        .replace(/Why this works:.*$/s, "")
+        .replace(/Remember to tailor.*$/s, "")
         .trim();
 
       setMessage(cleanedMessage);
@@ -131,7 +135,11 @@ const LeadsPage: React.FC = () => {
         {isLoading && leads.length > 0 && <LoadingIndicator isInline />}
 
         {showModal && (
-          <MessageModal message={message} onClose={() => setShowModal(false)} />
+          <MessageModal
+            message={message}
+            onClose={() => setShowModal(false)}
+            profileUrl={currentLead?.profile_url}
+          />
         )}
       </div>
     </div>
